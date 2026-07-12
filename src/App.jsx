@@ -5,12 +5,20 @@ import authService from './appwrite/auth';
 import { login, logout } from './store/authSlice';
 import { Footer, Header } from './Components';
 import { Outlet } from 'react-router-dom';
+import { client } from './lib/appwrite';
 
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch=useDispatch();
 
   useEffect(()=>{
+    // Ping Appwrite backend to verify connection
+    client.ping().then(() => {
+      console.log('✅ Appwrite connection verified!');
+    }).catch((err) => {
+      console.warn('⚠️ Appwrite ping failed:', err.message);
+    });
+
     authService.getCurrentUser().then((userData)=>{
       if(userData){
         dispatch(login({userData}))
