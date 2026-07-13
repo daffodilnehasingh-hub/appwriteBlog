@@ -29,6 +29,7 @@ const projects = new Projects(client);
 
 const platforms = [
   { type: 'web', name: 'Vercel Production', hostname: 'react-mega-project-lime.vercel.app' },
+  { type: 'web', name: 'Vercel GitHub',     hostname: 'appwrite-blog-picka.vercel.app' },
   { type: 'web', name: 'Vercel Old',        hostname: 'appwrite-blog-5e3a.vercel.app' },
   { type: 'web', name: 'Localhost Dev',     hostname: 'localhost' },
 ];

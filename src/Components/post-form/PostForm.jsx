@@ -28,8 +28,7 @@ function PostForm({ post }) {
             }
             const dbPost = await appwriteService.updatePost(post.$id, {
                 ...data,
-                featuredImage: file ? file.$id : undefined,
-
+                featuredImage: file ? file.$id : post.featuredImage,
             })
             if (dbPost) {
                 navigate(`/post/${dbPost.$id}`)
