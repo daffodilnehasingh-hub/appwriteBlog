@@ -32,6 +32,8 @@ function PostForm({ post }) {
             })
             if (dbPost) {
                 navigate(`/post/${dbPost.$id}`)
+            } else {
+                alert("Appwrite Error: Could not update the post. Check your browser console for details.");
             }
         } else {
             const file = await appwriteService.uploadFile(data.image[0])

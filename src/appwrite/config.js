@@ -39,6 +39,7 @@ export class Services{
             });
         }catch(error){
             console.error("Appwrite service :: updatePost :: error", error);
+            alert("Update Failed: " + error.message);
         }
     }
 
@@ -76,6 +77,7 @@ export class Services{
             return await this.bucket.createFile(conf.appwriteBucketId,ID.unique(),file);
         }catch(error){
             console.error("Appwrite service :: uploadFile :: error", error);
+            alert("Image Upload Failed: " + error.message);
             return false;
         }
     }
