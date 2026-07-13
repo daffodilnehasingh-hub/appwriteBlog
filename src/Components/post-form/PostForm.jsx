@@ -36,19 +36,33 @@ function PostForm({ post }) {
                 alert("Appwrite Error: Could not update the post. Check your browser console for details.");
             }
         } else {
-            const file = await appwriteService.uploadFile(data.image[0])
-            if (file) {
-                const fileId = file.$id
-                data.featuredImage = fileId
-                const dbPost = await appwriteService.createPost({
-                    ...data,
-                    userId: userData.$id,
-                    author: userData.name
-
-                })
-                if (dbPost) {
-                    navigate(`/post/${dbPost.$id}`)
+            try {
+                if (!userData) {
+                    alert("User is not logged in or session expired. Please log in again.");
+                    return;
                 }
+                const file = await appwriteService.uploadFile(data.image[0]);
+                if (file) {
+                    const fileId = file.$id;
+                    data.featuredImage = fileId;
+                    const dbPost = await appwriteService.createPost({
+                        ...data,
+                        userId: userData.$id,
+                        author: userData.name
+                    });
+                    
+                    if (dbPost) {
+                        navigate(`/post/${dbPost.$id}`);
+                    } else {
+                        console.error("Failed to create post. dbPost is undefined.");
+                        alert("Appwrite Error: Could not create the post. Check your browser console for details.");
+                    }
+                } else {
+                    console.error("Failed to upload image. file is false.");
+                }
+            } catch (error) {
+                console.error("Error inside submit function: ", error);
+                alert("An unexpected error occurred: " + error.message);
             }
         }
     }

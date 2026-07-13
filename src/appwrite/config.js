@@ -26,6 +26,7 @@ export class Services{
             });
         }catch(error){
             console.error("Appwrite service :: createPost :: error", error);
+            alert("Create Post Failed: " + error.message);
         }
     }
 
